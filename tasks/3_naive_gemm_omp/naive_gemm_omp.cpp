@@ -1,20 +1,16 @@
-#define _USE_MATH_DEFINES
-
 #include "naive_gemm_omp.h"
-#include <cmath>
-#include <omp.h>
 
-std::vector<float> GeluOMP(const std::vector<float>& input) {
-  size_t elements_count = input.size();
-  std::vector<float> result(elements_count, 0.0f);
-  const float* data_ptr = input.data();
+std::vector<float> NaiveGemmOMP(const std::vector<float>& a,
+                                const std::vector<float>& b, int n) {
+  std::vector<float> result(n * n, 0.0f);
 
-#pragma omp parallel for firstprivate(elements_count)
-  for (int i = 0; i < elements_count; ++i) {
-    float x = data_ptr[i];
-    result[i] =
-        0.5 * x *
-        (1 + tanh(sqrt(2 / M_PI) * (x + 0.044715 * powf(x, 3))));
+#pragma omp parallel for collapse(2)
+  for (int i = 0; i < n; ++i) {
+    for (int k = 0; k < n; ++k) {
+      for (int j = 0; j < n; ++j) {
+        result[i * n + j] += a[i * n + k] * b[k * n + j];
+      }
+    }
   }
 
   return result;

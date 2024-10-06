@@ -11,20 +11,11 @@ set(CMAKE_BUILD_TYPE Debug)
 
 find_package(OpenMP REQUIRED)
 
+# -------------------------------------
+
+add_subdirectory(deps)
+add_subdirectory(rng)
+
 add_subdirectory(tasks)
 
-add_executable(cuda cuda.cu)
-
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_options(cuda PRIVATE "-G")
-endif()
-
-# ------------------------------------
-
-# add_executable(app main.cu)
-
-# add_executable(app_1 aboba.cpp)
-
-# foreach(entry IN LISTS TASK_INCLUDE_DIRS) 
-#     message(STATUS ${entry})
-# endforeach()
+add_subdirectory(tests)
