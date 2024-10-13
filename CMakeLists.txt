@@ -10,12 +10,9 @@ option(USE_CUDA ON)
 set(CMAKE_BUILD_TYPE Debug)
 
 find_package(OpenMP REQUIRED)
-
-# -------------------------------------
+find_package(OpenCL REQUIRED)
 
 add_subdirectory(deps)
 add_subdirectory(rng)
-
 add_subdirectory(tasks)
-
 add_subdirectory(tests)

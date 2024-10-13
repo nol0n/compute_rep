@@ -1,4 +1,3 @@
-#include <cmath>
 #include <vector>
 #include <iostream>
 #include <chrono>
@@ -17,17 +16,6 @@ int main() {
   auto end = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> elapsed = end - start;
   std::cout << "Time taken by BlockGemmOMP: " << elapsed.count() << " seconds\n";
-
-  // std::vector<float> ref_res = R_BlockGemmCUDA(a, b, n);
-  // std::vector<float> my_res = BlockGemmCUDA(a, b, n);
-
-  // for (int i = 0; i < n * n; i++) {
-  //   if (fabs(ref_res[i] - my_res[i]) > 0.1f) {
-  //     std::cout << "error\n"; std::exit(0);
-  //   } 
-  // }
-
-  // std::cout << "ok\n";
 
   return 0;
 }
